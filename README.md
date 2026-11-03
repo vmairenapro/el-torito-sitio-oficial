@@ -1,6 +1,6 @@
 # Sitio de Cremería y Carnes El Torito
 
-Sitio hecho desde cero con HTML, CSS y JavaScript. La primera entrega incluye home, productos generales, sucursales y contacto. La consulta de cobertura y el simulador ya tienen reglas programadas, pero esperan datos reales para activarse.
+Sitio hecho desde cero con HTML, CSS y JavaScript. Incluye home, catálogo y simulador de compra, sucursales y contacto. La consulta de cobertura sigue pendiente de datos reales y una clave de Geoapify.
 
 ## Ver el sitio en tu computadora
 
@@ -30,7 +30,7 @@ Para cambios posteriores, crea una rama `codex/nombre-del-cambio`, haz commits d
 - **Formulario:** crea un formulario en [FormSubmit.app](https://formsubmit.app/), verifica `vmairenapro@outlook.com` como destinatario y coloca su endpoint en `formEndpoint` de `public/assets/js/site-config.js`. Publica un aviso de privacidad aprobado en `public/aviso-de-privacidad.html` y solo entonces cambia `privacyApproved` a `true`. Haz un envío de prueba y confirma que llega al buzón. El límite gratuito publicado por el proveedor es de 50 envíos mensuales; comprueba su uso periódicamente.
 - **Sucursales:** confirma nombre, dirección, horario y coordenadas de los seis puntos. Completa `public/assets/js/branches.mjs` y las fichas de `public/sucursales.html`. San Tomás permanece con `deliveryEnabled: false` hasta que reparto pueda salir de ahí. Añade la nueva sucursal cuando abra y su reparto esté activo.
 - **Cobertura:** crea una clave en Geoapify. En Cloudflare Pages guárdala como secreto `GEOAPIFY_API_KEY` para producción y vista previa. Nunca la pongas en HTML, JS público, README o un commit. Comprueba resultados por código postal y dirección contra recorridos conocidos antes de enlazar `public/cobertura.html` desde el home y el menú.
-- **Catálogo:** agrega solo productos y tres precios aprobados a `public/assets/js/catalog-data.mjs`, en **centavos**. El simulador aparecerá cuando haya productos cargados. Confirma presentaciones, disponibilidad y vigencia de precios.
+- **Catálogo:** hay 284 productos únicos con tres precios autorizados en `public/assets/js/catalog-data.mjs`. Consulta `CATALOGO.md` para ver origen, validaciones y la ausencia temporal de lácteos. Al actualizar precios, usa los importes **unitarios**, en centavos, y verifica las tres listas antes de publicar.
 - **WhatsApp:** actualmente enlaza al número proporcionado: `55 8826 6900`.
 
 ## Estructura
@@ -40,5 +40,6 @@ Para cambios posteriores, crea una rama `codex/nombre-del-cambio`, haz commits d
 - `public/assets/js/pricing.mjs` y `coverage-rules.mjs`: reglas compartidas y probadas.
 - `tests/`: pruebas de umbrales y selección de ruta.
 - `ASSETS.md`: origen y licencia de las imágenes.
+- `CATALOGO.md`: origen, alcance y reglas de los precios publicados.
 
-La página actual es una **vista previa**. Las fotografías son ilustrativas y el formulario, la cobertura y los precios precisos no deben anunciarse como activos antes de completar los datos y pruebas indicados.
+Las fotografías son ilustrativas. El formulario y la consulta de cobertura permanecen desactivados hasta completar sus datos y pruebas. El catálogo y el simulador muestran estimaciones; ventas debe confirmar precios, disponibilidad, nivel y entrega.

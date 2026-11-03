@@ -14,16 +14,16 @@ El servidor local muestra las páginas estáticas. Las funciones de Cloudflare s
 
 ## Publicar con GitHub y Cloudflare Pages
 
-El repositorio ya está inicializado en Git. Crea un repositorio **vacío** en tu cuenta personal de GitHub, sin README ni licencia generados por GitHub. Después ejecuta:
+El repositorio local ya está inicializado en Git y el repositorio remoto está creado en [vmairenapro/el-torito-sitio-oficial](https://github.com/vmairenapro/el-torito-sitio-oficial). Para conectar una copia local nueva, ejecuta:
 
 ```powershell
-git remote add origin https://github.com/TU_USUARIO/el-torito-sitio.git
+git remote add origin https://github.com/vmairenapro/el-torito-sitio-oficial.git
 git push -u origin main
 ```
 
 En el panel de Cloudflare entra en **Workers & Pages → Create application → Pages → Connect to Git** y selecciona ese repositorio. Configura la rama de producción `main`, sin framework, deja vacío el comando de compilación y usa `public` como directorio de salida. Cloudflare publicará una URL `pages.dev`; cada nuevo `git push` a `main` actualizará esa versión. Para cambios posteriores, crea una rama `codex/nombre-del-cambio`, haz commits descriptivos y abre un pull request antes de unirla a `main`. Las otras ramas pueden generar vistas previas.
 
-No se ha creado aún el repositorio remoto ni el proyecto de Cloudflare; este documento describe el paso que falta y no representa un despliegue realizado.
+El repositorio remoto ya existe. Comprueba en GitHub que `main` tenga los archivos antes de vincularlo a Cloudflare. Este documento no representa por sí mismo un despliegue realizado.
 
 ## Datos pendientes antes de activar funciones
 

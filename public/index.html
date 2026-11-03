@@ -58,12 +58,28 @@
         </div>
       </section>
 
-      <section class="clients-section" aria-labelledby="clients-title" hidden>
+      <section class="clients-section" aria-labelledby="clients-title">
         <div class="container">
-          <span class="eyebrow light">NUESTROS CLIENTES</span>
-          <h2 id="clients-title">Negocios que hemos atendido.</h2>
-          <ul class="clients-ribbon" aria-label="Negocios atendidos">
-            <!-- Agregar aquí solo nombres confirmados para publicación. -->
+          <div class="clients-heading">
+            <div><span class="eyebrow light">NUESTROS CLIENTES</span><h2 id="clients-title">Negocios que hemos atendido.</h2></div>
+            <div class="clients-controls" role="group" aria-label="Recorrer negocios">
+              <button type="button" data-client-direction="-1" aria-label="Ver negocios anteriores">←</button>
+              <button type="button" data-client-direction="1" aria-label="Ver más negocios">→</button>
+            </div>
+          </div>
+          <ul class="clients-ribbon" id="clients-ribbon" tabindex="0" aria-label="Negocios atendidos">
+            <li>MetLife</li>
+            <li>Servido</li>
+            <li>Cafetería Club América</li>
+            <li>Cafetería Club Pumas</li>
+            <li>Restaurantes Mallorquina</li>
+            <li>Difra</li>
+            <li>Comedor Industrial Ramar</li>
+            <li>Papa John's</li>
+            <li>Lucky Sushi</li>
+            <li>Infamous Pizza</li>
+            <li>Yim Thai</li>
+            <li>Papa Guapa</li>
           </ul>
         </div>
       </section>

@@ -16,6 +16,23 @@
       }
     });
   }
+  const clientsRibbon = document.querySelector('#clients-ribbon');
+  const clientButtons = [...document.querySelectorAll('[data-client-direction]')];
+  if (clientsRibbon && clientButtons.length === 2) {
+    const updateControls = () => {
+      const maxScroll = clientsRibbon.scrollWidth - clientsRibbon.clientWidth;
+      clientButtons[0].disabled = clientsRibbon.scrollLeft <= 1;
+      clientButtons[1].disabled = clientsRibbon.scrollLeft >= maxScroll - 1;
+    };
+    clientButtons.forEach((button) => button.addEventListener('click', () => {
+      const distance = Math.max(240, clientsRibbon.clientWidth * 0.7);
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      clientsRibbon.scrollBy({ left: Number(button.dataset.clientDirection) * distance, behavior });
+    }));
+    clientsRibbon.addEventListener('scroll', updateControls, { passive: true });
+    window.addEventListener('resize', updateControls);
+    requestAnimationFrame(updateControls);
+  }
   const form = document.querySelector('#contact-form');
   if (form) {
     const config = window.EL_TORITO_CONFIG || {};

@@ -19,19 +19,57 @@
   const clientsRibbon = document.querySelector('#clients-ribbon');
   const clientButtons = [...document.querySelectorAll('[data-client-direction]')];
   if (clientsRibbon && clientButtons.length === 2) {
-    const updateControls = () => {
-      const maxScroll = clientsRibbon.scrollWidth - clientsRibbon.clientWidth;
-      clientButtons[0].disabled = clientsRibbon.scrollLeft <= 1;
-      clientButtons[1].disabled = clientsRibbon.scrollLeft >= maxScroll - 1;
+    const logos = [...clientsRibbon.children];
+    for (let copy = 0; copy < 2; copy++) {
+      logos.forEach((logo) => {
+        const duplicate = logo.cloneNode(true);
+        duplicate.setAttribute('aria-hidden', 'true');
+        duplicate.querySelector('img').alt = '';
+        clientsRibbon.append(duplicate);
+      });
+    }
+
+    let cycleWidth = 0;
+    let hovered = false;
+    let focused = false;
+    let pauseUntil = 0;
+    let lastFrame = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const measure = () => {
+      cycleWidth = clientsRibbon.children[logos.length].offsetLeft - logos[0].offsetLeft;
+      clientsRibbon.scrollLeft = cycleWidth;
+    };
+    const wrap = () => {
+      if (!cycleWidth) return;
+      if (clientsRibbon.scrollLeft >= cycleWidth * 2) clientsRibbon.scrollLeft -= cycleWidth;
+      if (clientsRibbon.scrollLeft < cycleWidth) clientsRibbon.scrollLeft += cycleWidth;
+    };
+    const animate = (time) => {
+      const elapsed = Math.min(time - (lastFrame || time), 64);
+      lastFrame = time;
+      if (!reducedMotion.matches && !document.hidden && !hovered && !focused && time >= pauseUntil) {
+        clientsRibbon.scrollLeft += elapsed * 0.045;
+      }
+      wrap();
+      requestAnimationFrame(animate);
     };
     clientButtons.forEach((button) => button.addEventListener('click', () => {
-      const distance = Math.max(240, clientsRibbon.clientWidth * 0.7);
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      clientsRibbon.scrollBy({ left: Number(button.dataset.clientDirection) * distance, behavior });
+      pauseUntil = performance.now() + 4000;
+      clientsRibbon.scrollLeft += Number(button.dataset.clientDirection) * Math.max(240, clientsRibbon.clientWidth * 0.55);
+      wrap();
     }));
-    clientsRibbon.addEventListener('scroll', updateControls, { passive: true });
-    window.addEventListener('resize', updateControls);
-    requestAnimationFrame(updateControls);
+    clientsRibbon.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') hovered = true; });
+    clientsRibbon.addEventListener('pointerleave', () => { hovered = false; });
+    clientsRibbon.addEventListener('pointerdown', () => { pauseUntil = performance.now() + 4000; });
+    const clientsSection = clientsRibbon.closest('.clients-section');
+    clientsSection.addEventListener('focusin', () => { focused = true; });
+    clientsSection.addEventListener('focusout', (event) => {
+      if (!clientsSection.contains(event.relatedTarget)) focused = false;
+    });
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure, { once: true });
+    measure();
+    requestAnimationFrame(animate);
   }
   const form = document.querySelector('#contact-form');
   if (form) {

@@ -12,18 +12,18 @@ Sitio hecho desde cero con HTML, CSS y JavaScript. La primera entrega incluye ho
 
 El servidor local muestra las páginas estáticas. Las funciones de Cloudflare se prueban con `npx wrangler pages dev public` una vez que la clave de Geoapify y las coordenadas estén configuradas; no incluyas la clave en Git.
 
-## Publicar con GitHub y Cloudflare Pages
+## Sitio publicado y flujo de cambios
 
-El repositorio local ya está inicializado en Git y el repositorio remoto está creado en [vmairenapro/el-torito-sitio-oficial](https://github.com/vmairenapro/el-torito-sitio-oficial). Para conectar una copia local nueva, ejecuta:
+La primera versión está publicada en [el-torito-sitio-oficial.pages.dev](https://el-torito-sitio-oficial.pages.dev/) desde la rama `main` del repositorio público [vmairenapro/el-torito-sitio-oficial](https://github.com/vmairenapro/el-torito-sitio-oficial). Cloudflare Pages quedó configurado sin framework, con comando de compilación vacío y `public` como directorio de salida. Cada nuevo `git push` a `main` inicia otro despliegue automático.
+
+Para conectar una copia local nueva al repositorio existente, ejecuta:
 
 ```powershell
 git remote add origin https://github.com/vmairenapro/el-torito-sitio-oficial.git
 git push -u origin main
 ```
 
-En el panel de Cloudflare entra en **Workers & Pages → Create application → Pages → Connect to Git** y selecciona ese repositorio. Configura la rama de producción `main`, sin framework, deja vacío el comando de compilación y usa `public` como directorio de salida. Cloudflare publicará una URL `pages.dev`; cada nuevo `git push` a `main` actualizará esa versión. Para cambios posteriores, crea una rama `codex/nombre-del-cambio`, haz commits descriptivos y abre un pull request antes de unirla a `main`. Las otras ramas pueden generar vistas previas.
-
-El repositorio remoto ya existe. Comprueba en GitHub que `main` tenga los archivos antes de vincularlo a Cloudflare. Este documento no representa por sí mismo un despliegue realizado.
+Para cambios posteriores, crea una rama `codex/nombre-del-cambio`, haz commits descriptivos y abre un pull request antes de unirla a `main`. Cloudflare puede generar una vista previa de la rama antes de publicar el cambio en producción. Comprueba el estado del despliegue en el panel de **Workers & Pages → el-torito-sitio-oficial**.
 
 ## Datos pendientes antes de activar funciones
 
